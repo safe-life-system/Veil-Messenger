@@ -5,9 +5,10 @@ from src.services import registration
 
 #Класс бэкэнда для QML
 class Backend(QObject):
-    def __init__(self, client):
+    def __init__(self, client, engine):
         super().__init__()
         self.client = client
+        self.engine = engine
 
     @asyncSlot(str, str, str)
     async def registration(self, user_login, user_name, password):
@@ -16,4 +17,7 @@ class Backend(QObject):
         
         await self.client.send_write(struct.pack('!I', len(registration_data)))
         await self.client.send_write(registration_data)
-        await self.client.handler_reader()
+        db_status = await self.client.handler_reader()
+        if db_status is True:
+            root = self.engine.rootObjects()[0]
+            root.showMain()

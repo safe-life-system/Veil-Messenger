@@ -2,12 +2,11 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-ApplicationWindow {
-    visible: true
-    width: 1000
-    height: 600
+Rectangle {
     color: "#12141A"
-    title: "Veil"
+    function showMain() {
+        loader.source = "Main_window.qml"
+    }
     Rectangle {
         width: 440
         height: 390
@@ -108,7 +107,7 @@ ApplicationWindow {
             Text {
                 id: creat_accaunt
                 text: qsTr("Создать аккаут")
-                property bool hover: False
+                property bool hover: false
                 Layout.alignment: Qt.AlignCenter
                 font.pixelSize: 16
                 font.family: "Roboto"

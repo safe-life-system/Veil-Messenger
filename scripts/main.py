@@ -17,7 +17,7 @@ def start():
     asyncio.set_event_loop(loop)
 
     engine = QQmlApplicationEngine()
-    engine.load("ui/login.qml")
+    engine.load("ui/main.qml")
 
     client = connection_client.ClientConnection()
     
@@ -29,7 +29,7 @@ def start():
         await client.connection_client(host, port,certificate_path)
         
     loop.create_task(setup())
-    _backend = backend.Backend(client)
+    _backend = backend.Backend(client, engine)
     engine.rootContext().setContextProperty("backend", _backend)
 
     with loop:
