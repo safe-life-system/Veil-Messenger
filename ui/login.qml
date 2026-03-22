@@ -103,6 +103,7 @@ Rectangle {
                 Layout.preferredWidth: 230
                 Layout.topMargin: 48
                 Layout.alignment: Qt.AlignCenter
+                onClicked: backend.authorization(login_input.text, name_input.text, password_input.text)
             }
             Text {
                 id: creat_accaunt
