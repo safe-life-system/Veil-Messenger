@@ -19,6 +19,9 @@ class ResponseHandler:
     
     #Метод регистрации в локлаьной БД
     async def REGISTRATION(self):
-        registration_db = data_base_control.DataBaseControl(self.response["user_id"], self.response["user_name"], self.response["user_login"], self.response["password"], self.response["salt"])
-        registration_db.create_db()
-        registration_db.registration_db()
+        if self.response["registration_status"] is True:
+            registration_db = data_base_control.DataBaseControl(self.response["user_id"], self.response["user_name"], self.response["user_login"], self.response["password"], self.response["salt"])
+            registration_db.create_db()
+            registration_db.registration_db()
+            return True
+        return False

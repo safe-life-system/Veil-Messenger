@@ -36,7 +36,7 @@ class ClientConnection:
         data_length = await self.reader.read(4)
         data_length = struct.unpack('!I', data_length)[0]
         data = await self.reader.read(data_length+1)
-        await response_handlers.ResponseHandler(data).check_type()
+        return await response_handlers.ResponseHandler(data).check_type()
     
     #Реализация закрытия
     async def close(self):
