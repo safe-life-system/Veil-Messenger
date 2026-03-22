@@ -25,15 +25,23 @@ class RegistrationAuthorization:
     
     #Метод регистрации
     def registration(self):
-        salt_data = self.salt_geniration(self.user_login, self.password)
-        self.password = base64.b64encode(SHA3_512.new(salt_data["salt_user_password"]).digest()).decode('utf-8')
         self.user_login = base64.b64encode(SHA3_512.new(bytes(self.user_login, "utf-8")).digest()).decode('utf-8')
         requesrt = {
             "type_request": "(REGISTRATION)",
             "user_login": self.user_login,
             "user_name": self.user_name,
+            "password": self.password
+        }
+        
+        return json.dumps(requesrt)
+    
+    def authorization(self):
+        self.user_login = base64.b64encode(SHA3_512.new(bytes(self.user_login, "utf-8")).digest()).decode('utf-8')
+        requesrt = {
+            "type_request": "(AUTHORIZATION)",
+            "user_login": self.user_login,
+            "user_name": self.user_name,
             "password": self.password,
-            "salt": base64.b64encode(salt_data["salt"]).decode('utf-8')
         }
         
         return json.dumps(requesrt)
