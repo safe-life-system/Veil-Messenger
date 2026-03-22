@@ -1,6 +1,7 @@
 import asyncio, json
 from data.config import handlers_list
 from src.db import data_base_control
+import uuid
 
 #Клас обработки ответов об сервера
 class ResponseHandler:
@@ -20,6 +21,14 @@ class ResponseHandler:
     #Метод регистрации в локлаьной БД
     async def REGISTRATION(self):
         if self.response["registration_status"] is True:
+            registration_db = data_base_control.DataBaseControl(self.response["user_id"], self.response["user_name"], self.response["user_login"], self.response["password"], self.response["salt"])
+            registration_db.create_db()
+            registration_db.registration_db()
+            return True
+        return False
+    
+    def AUTHORIZATION(self):
+        if self.response["authorization_status"] is True:
             registration_db = data_base_control.DataBaseControl(self.response["user_id"], self.response["user_name"], self.response["user_login"], self.response["password"], self.response["salt"])
             registration_db.create_db()
             registration_db.registration_db()
